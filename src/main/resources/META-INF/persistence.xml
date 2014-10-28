@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="kills">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.openshift.ff.data.RoadkillEntity</class>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://54494f14e0b8cdf80e0001e1-thesteve0.rhcloud.com:49796/flatfluffy"/>
+            <property name="hibernate.connection.username" value="adminz2zdxgl"/>
+            <property name="hibernate.connection.password" value="q-i8tN_8ZZbG"/>
+            <!--
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/flatfluffy"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.username" value="spousty"/>
+            <property name="hibernate.connection.password" value="data+moredta"/>
+            -->
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="validate"/>
+
+
+            <property name="hibernate.connection.provider_class" value="org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider"/>
+            <property name="hibernate.dialect" value="org.hibernate.spatial.dialect.postgis.PostgisDialect"/>
+            <property name="hibernate.c3p0.acquire_increment" value="3"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+            <property name="hibernate.c3p0.min_size" value="10"/>
+            <property name="hibernate.c3p0.max_size" value="195"/>
+            <property name="hibernate.c3p0.max_statements" value="10"/>
+            <property name="hibernate.c3p0.timeout" value="600"/>
+            <property name="hibernate.c3p0.validate" value="false"/>
+            <!-- added by SIP after reading on the config page -->
+            <property name="hibernate.c3p0.num_helper_threads" value="14"/>
+        </properties>
+    </persistence-unit>
+</persistence>
