@@ -44,8 +44,11 @@ public class KillWS {
     @Consumes("application/json")
     @Produces("application/json")
     public RoadkillEntity recordKill(WebKillRecord input){
+        RoadkillEntity result = new RoadkillEntity();
 
         System.out.println(input);
+
+        return result;
 
     }
 
