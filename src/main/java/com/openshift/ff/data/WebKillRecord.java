@@ -46,11 +46,11 @@ public class WebKillRecord {
         this.userid = userid;
     }
 
-    public double[] getPoints() {
-        return points;
+    public double[] getPosition() {
+        return position;
     }
 
-    public void setPoints(double[] points) {
-        this.points = points;
+    public void setPosition(double[] position) {
+        this.position = position;
     }
 }
