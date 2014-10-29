@@ -47,13 +47,13 @@ public class KillWS {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public RoadkillEntity recordKill(WebKillRecord input){
-        RoadkillEntity result = new RoadkillEntity();
+    public HashMap recordKill(WebKillRecord input){
+        RoadkillEntity roadkillEntity = new RoadkillEntity();
 
-        result.setDescription(input.getDescription());
-        result.setKilltypeidKilltype(input.getKilltype_id());
-        result.setNotes(input.getNotes());
-        result.setUsersidUsers(input.getUser_id());
+        roadkillEntity.setDescription(input.getDescription());
+        roadkillEntity.setKilltypeidKilltype(input.getKilltype_id());
+        roadkillEntity.setNotes(input.getNotes());
+        roadkillEntity.setUsersidUsers(input.getUser_id());
         double[] inCoords = input.getPosition();
 
         //since our data in PostGIS has a srid of 4326, we need to use a geometryfactory to get a geom with that model
@@ -68,11 +68,13 @@ public class KillWS {
             System.out.println("Threw an exception trying to parse point: " + e.getMessage());
         }
 
-        result.setLocation(inputPoint);
+        roadkillEntity.setLocation(inputPoint);
 
-        em.persist(result);
+        em.persist(roadkillEntity);
 
-        return result;
+
+
+        return processRoadKillEntity(roadkillEntity);
 
     }
 
