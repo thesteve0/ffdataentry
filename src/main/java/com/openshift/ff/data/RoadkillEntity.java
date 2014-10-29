@@ -27,7 +27,9 @@ public class RoadkillEntity {
     }
 
     @Id
-    @Column(name = "roadkillid")
+    @Column(name = "roadkillid", unique = true, updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roadkill_roadkillid_seq")
+    @SequenceGenerator(name =  "roadkill_roadkillid_seq", sequenceName =  "roadkill_roadkillid_seq", allocationSize = 1)
     public int getRoadkillid() {
         return roadkillid;
     }
