@@ -81,18 +81,23 @@ public class KillWS {
         ArrayList<HashMap> results = new ArrayList<HashMap>(inputList.size());
 
         for (RoadkillEntity rawKill : inputList){
-            HashMap kill = new HashMap();
-            kill.put("id", rawKill.getRoadkillid());
-            kill.put("description", rawKill.getDescription());
-            kill.put("notes", rawKill.getNotes());
-            kill.put("user_id", rawKill.getUsersidUsers());
-            kill.put("killtype_id", rawKill.getKilltypeidKilltype());
-            double[] positions = {rawKill.getLocation().getX(),rawKill.getLocation().getY()};
-            kill.put("position", positions);
-
-            results.add(kill);
+            results.add(processRoadKillEntity(rawKill));
         }
         return  results;
+
+    }
+
+    private HashMap processRoadKillEntity(RoadkillEntity entity){
+        HashMap kill = new HashMap();
+        kill.put("id", entity.getRoadkillid());
+        kill.put("description", entity.getDescription());
+        kill.put("notes", entity.getNotes());
+        kill.put("user_id", entity.getUsersidUsers());
+        kill.put("killtype_id", entity.getKilltypeidKilltype());
+        double[] positions = {entity.getLocation().getX(),entity.getLocation().getY()};
+        kill.put("position", positions);
+
+        return kill;
 
     }
 
