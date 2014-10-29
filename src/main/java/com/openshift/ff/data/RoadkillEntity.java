@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 /**
  * Created by spousty on 10/27/14.
@@ -19,6 +20,11 @@ public class RoadkillEntity {
     private Timestamp entrytimestamp;
     private Integer usersidUsers;
     private Integer killtypeidKilltype;
+
+    @PrePersist
+    protected void onCreate() {
+        entrytimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+    }
 
     @Id
     @Column(name = "roadkillid")

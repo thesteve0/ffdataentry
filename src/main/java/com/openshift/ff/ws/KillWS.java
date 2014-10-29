@@ -2,6 +2,10 @@ package com.openshift.ff.ws;
 
 import com.openshift.ff.data.RoadkillEntity;
 import com.openshift.ff.data.WebKillRecord;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.io.WKTReader;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
@@ -46,7 +50,27 @@ public class KillWS {
     public RoadkillEntity recordKill(WebKillRecord input){
         RoadkillEntity result = new RoadkillEntity();
 
-        System.out.println(input);
+        result.setDescription(input.getDescription());
+        result.setKilltypeidKilltype(input.getKilltype_id());
+        result.setNotes(input.getNotes());
+        result.setUsersidUsers(input.getUser_id());
+        double[] inCoords = input.getPosition();
+
+        //since our data in PostGIS has a srid of 4326, we need to use a geometryfactory to get a geom with that model
+        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(PrecisionModel.FLOATING), 4326);
+        WKTReader wktReader = new WKTReader(geometryFactory);
+
+        String point = "POINT(" + inCoords[0] + " " + inCoords[1] + ")";
+        Point inputPoint = null;
+        try {
+            inputPoint = (Point) wktReader.read(point);
+        } catch (Exception e){
+            System.out.println("Threw an exception trying to parse point: " + e.getMessage());
+        }
+
+        result.setLocation(inputPoint);
+
+        em.persist(result);
 
         return result;
 
