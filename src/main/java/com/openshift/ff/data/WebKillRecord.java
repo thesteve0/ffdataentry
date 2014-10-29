@@ -11,7 +11,7 @@ public class WebKillRecord {
     private String notes = "";
     private int killtype = 0;
     private int userid = 1;
-    private double[] points;
+    private double[] position;
 
 
     public String getDescription() {
