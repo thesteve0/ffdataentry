@@ -7,9 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,11 +33,16 @@ public class KillWS {
 
         Query query = em.createQuery("select r from RoadkillEntity r");
 
-        //TODO given that we have geometries in here we need to write a method to process them before sending them out
-
         kills = processKillsFromDB((ArrayList<RoadkillEntity>) query.getResultList());
 
         return kills;
+
+    }
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    public RoadkillEntity recordKill(){
 
     }
 
