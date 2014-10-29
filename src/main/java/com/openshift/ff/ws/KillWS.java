@@ -1,6 +1,7 @@
 package com.openshift.ff.ws;
 
 import com.openshift.ff.data.RoadkillEntity;
+import com.openshift.ff.data.WebKillRecord;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
@@ -42,7 +43,9 @@ public class KillWS {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public RoadkillEntity recordKill(){
+    public RoadkillEntity recordKill(WebKillRecord input){
+
+        System.out.println(input);
 
     }
 
