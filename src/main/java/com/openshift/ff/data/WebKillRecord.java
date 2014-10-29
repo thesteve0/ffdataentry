@@ -9,8 +9,8 @@ public class WebKillRecord {
 
     private String description = "";
     private String notes = "";
-    private int killtype = 0;
-    private int userid = 1;
+    private int killtype_id = 0;
+    private int user_id = 1;
     private double[] position;
 
 
@@ -30,20 +30,20 @@ public class WebKillRecord {
         this.notes = notes;
     }
 
-    public int getKilltype() {
-        return killtype;
+    public int getKilltype_id() {
+        return killtype_id;
     }
 
-    public void setKilltype(int killtype) {
-        this.killtype = killtype;
+    public void setKilltype_id(int killtype_id) {
+        this.killtype_id = killtype_id;
     }
 
-    public int getUserid() {
-        return userid;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public double[] getPosition() {
