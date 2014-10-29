@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,16 +29,39 @@ public class KillWS {
 
     @GET
     @Produces("application/json")
-    public List<RoadkillEntity> getKills(){
+    public List<HashMap> getKills(){
 
-        List<RoadkillEntity> users = new ArrayList<RoadkillEntity>();
+        List<HashMap> kills = new ArrayList<HashMap>();
 
         Query query = em.createQuery("select r from RoadkillEntity r");
 
-        users = (ArrayList<RoadkillEntity>) query.getResultList();
+        //TODO given that we have geometries in here we need to write a method to process them before sending them out
 
-        return users;
+        kills = processKillsFromDB((ArrayList<RoadkillEntity>) query.getResultList());
 
+        return kills;
 
     }
+
+
+    private List<HashMap> processKillsFromDB(ArrayList<RoadkillEntity> inputList){
+        ArrayList<HashMap> results = new ArrayList<HashMap>(inputList.size());
+
+        for (RoadkillEntity rawKill : inputList){
+            HashMap kill = new HashMap();
+            kill.put("id", rawKill.getRoadkillid());
+            kill.put("description", rawKill.getDescription());
+            kill.put("notes", rawKill.getNotes());
+            kill.put("user_id", rawKill.getUsersidUsers());
+            kill.put("killtype_id", rawKill.getKilltypeidKilltype());
+            double[] positions = {rawKill.getLocation().getX(),rawKill.getLocation().getY()};
+            kill.put("position", positions);
+
+            results.add(kill);
+        }
+        return  results;
+
+    }
+
+    //TODO the input will take easy point and then make them into WKT before putting them in
 }
