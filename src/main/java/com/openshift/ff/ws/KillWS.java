@@ -86,7 +86,7 @@ public class KillWS {
         try {
 
             em.persist(roadkillEntity);
-            newKillQueue.push("{ 'userid': " + roadkillEntity.getUsersidUsers() + " }");
+            newKillQueue.push("{ \"userid\": " + roadkillEntity.getUsersidUsers() + " }");
 
         } catch (Exception e) {
             e.printStackTrace();
