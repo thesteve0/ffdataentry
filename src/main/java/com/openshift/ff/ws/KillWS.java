@@ -6,6 +6,9 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTReader;
+import io.iron.ironmq.Client;
+import io.iron.ironmq.Cloud;
+import io.iron.ironmq.Queue;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
@@ -29,6 +32,15 @@ public class KillWS {
 
     @PersistenceContext(name = "kills")
     EntityManager em;
+
+    Queue newKillQueue;
+
+    public KillWS() {
+
+        //for MessageQue
+        Client client = new Client(System.getenv("OPENSHIFT_IRONMQ_PROJECT"), System.getenv("OPENSHIFT_IRONMQ_TOKEN"), Cloud.ironAWSUSEast);
+        newKillQueue = client.queue("new_kill_recorded");
+    }
 
     @GET
     @Produces("application/json")
@@ -70,8 +82,14 @@ public class KillWS {
 
         roadkillEntity.setLocation(inputPoint);
 
-        em.persist(roadkillEntity);
+        try {
+            em.persist(roadkillEntity);
+            newKillQueue.push("{ 'userid': " + roadkillEntity.getUsersidUsers() + " }");
 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         return processRoadKillEntity(roadkillEntity);
