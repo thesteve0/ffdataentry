@@ -82,10 +82,11 @@ public class KillWS {
 
         roadkillEntity.setLocation(inputPoint);
 
+        System.out.println(System.getenv("OPENSHIFT_IRONMQ_PROJECT"));
         try {
+            
             em.persist(roadkillEntity);
             newKillQueue.push("{ 'userid': " + roadkillEntity.getUsersidUsers() + " }");
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,5 +122,4 @@ public class KillWS {
 
     }
 
-    //TODO the input will take easy point and then make them into WKT before putting them in
 }
