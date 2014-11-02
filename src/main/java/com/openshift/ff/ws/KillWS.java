@@ -82,9 +82,9 @@ public class KillWS {
 
         roadkillEntity.setLocation(inputPoint);
 
-        System.out.println(System.getenv("OPENSHIFT_IRONMQ_PROJECT"));
+        System.out.println("Here is the env: " + System.getenv("OPENSHIFT_IRONMQ_PROJECT"));
         try {
-            
+
             em.persist(roadkillEntity);
             newKillQueue.push("{ 'userid': " + roadkillEntity.getUsersidUsers() + " }");
 
